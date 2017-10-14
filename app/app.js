@@ -37,6 +37,9 @@ import '!file-loader?name=[name].[ext]!./manifest.json';
 import 'file-loader?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
 
+/* importando a bulma framework css */
+import '!!style-loader!css-loader!../node_modules/bulma/css/bulma.css';
+
 import configureStore from './configureStore';
 
 // Import i18n messages
