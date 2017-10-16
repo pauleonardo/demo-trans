@@ -41,6 +41,8 @@ import 'file-loader?name=[name].[ext]!./.htaccess';
 import '!!style-loader!css-loader!../node_modules/bulma/css/bulma.css';
 /* importando estilos de react-widgets */
 import '!!style-loader!css-loader!../node_modules/react-widgets/dist/css/react-widgets.css';
+ /* importanto estilos de flag-icon */
+import '!!style-loader!css-loader!../node_modules/flag-icon-css/css/flag-icon.min.css';
 
 import Moment from 'moment';
 import momentLocalizer from 'react-widgets-moment';
