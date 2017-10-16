@@ -39,6 +39,11 @@ import 'file-loader?name=[name].[ext]!./.htaccess';
 
 /* importando a bulma framework css */
 import '!!style-loader!css-loader!../node_modules/bulma/css/bulma.css';
+/* importando estilos de react-widgets */
+import '!!style-loader!css-loader!../node_modules/react-widgets/dist/css/react-widgets.css';
+
+import Moment from 'moment';
+import momentLocalizer from 'react-widgets-moment';
 
 import configureStore from './configureStore';
 
@@ -53,6 +58,9 @@ const initialState = {};
 const history = createHistory();
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
+
+Moment.locale('en');
+momentLocalizer(Moment);
 
 const render = (messages) => {
   ReactDOM.render(

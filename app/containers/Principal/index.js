@@ -18,6 +18,8 @@ import {
 import Header from 'components/Header';
 import Footer from 'components/Footer';
 import AddUser from 'components/AddUser';
+import Table from 'components/Table';
+import ModalCreate from 'components/ModalCreateUser';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectPrincipal from './selectors';
@@ -25,7 +27,21 @@ import reducer from './reducer';
 import saga from './saga';
 
 export class Principal extends React.Component { // eslint-disable-line react/prefer-stateless-function
+  state = {
+    modalShow: false,
+    editMode: false,
+  }
+  closeModal = () => {
+    this.setState({ modalShow: false });
+  }
+  showModalUser = () => {
+    this.setState({ modalShow: true, editMode: false });
+  }
+  closeModal = () => {
+    this.setState({ modalShow: false, editMode: false });
+  }
   render() {
+    const { principal: { headers } } = this.props;
     return (
       <div>
         <Helmet>
@@ -35,17 +51,28 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
         <Header />
         <Container>
           <Content>
-            <AddUser />
+            <AddUser actionAdd={this.showModalUser} />
+            <Container>
+              <Table
+                headersTable={headers}
+              />
+            </Container>
           </Content>
         </Container>
         <Footer fixed />
+        <ModalCreate
+          showModal={this.state.modalShow}
+          editMode={this.state.editMode}
+          close={this.closeModal}
+        />
       </div>
     );
   }
 }
 
 Principal.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  // dispatch: PropTypes.func.isRequired,
+  principal: PropTypes.obj,
 };
 
 const mapStateToProps = createStructuredSelector({
