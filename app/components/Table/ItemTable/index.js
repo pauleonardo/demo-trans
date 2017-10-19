@@ -41,21 +41,21 @@ function ItemTable({
       <td style={styles.items}>
         <Button
           color={'danger'}
-          name={'Borrar'}
+          text={'Borrar'}
           action={() => eraseAction(id)}
         />
       </td>
       <td style={styles.items}>
         <Button
           color={'warning'}
-          name={'Editar'}
-          action={() => editAction(id)}
+          text={'Editar'}
+          action={() => editAction({ id, country, deports, date, name, eraseAction, editAction, transAction })}
         />
       </td>
       <td style={styles.items}>
         <Button
           color={'info'}
-          name={'Transacciones'}
+          text={'Transacciones'}
           action={() => transAction(id)}
         />
       </td>

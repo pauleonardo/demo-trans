@@ -25,11 +25,30 @@ import injectReducer from 'utils/injectReducer';
 import makeSelectPrincipal from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import {
+  style,
+} from './StyledComponents';
+import {
+  FETCH_LIST_CUSTOMER_INIT,
+  FETCH_LIST_COUNTRY_INIT,
+} from './constants';
 
 export class Principal extends React.Component { // eslint-disable-line react/prefer-stateless-function
   state = {
     modalShow: false,
     editMode: false,
+    customers: [],
+    toEdit: {},
+  }
+  componentWillMount() {
+    const { dispatch } = this.props;
+    dispatch({ type: FETCH_LIST_CUSTOMER_INIT });
+    dispatch({ type: FETCH_LIST_COUNTRY_INIT });
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps !== this.props) {
+      this.setState({ customers: Object.entries(nextProps.principal.data) });
+    }
   }
   closeModal = () => {
     this.setState({ modalShow: false });
@@ -40,8 +59,12 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
   closeModal = () => {
     this.setState({ modalShow: false, editMode: false });
   }
+  handleSetUserToEdit = (customer) => {
+    this.setState({ modalShow: true, editMode: true, toEdit: customer });
+  }
   render() {
-    const { principal: { headers } } = this.props;
+    const { principal: { headers, loading, countries } } = this.props;
+    const { customers } = this.state;
     return (
       <div>
         <Helmet>
@@ -52,15 +75,21 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
         <Container>
           <Content>
             <AddUser actionAdd={this.showModalUser} />
-            <Container>
+            <Container
+              style={{ ...style.container, overflowX: (loading) ? 'inherit' : 'auto' }}
+            >
               <Table
                 headersTable={headers}
+                itemElements={customers}
+                edit={this.handleSetUserToEdit}
               />
             </Container>
           </Content>
         </Container>
-        <Footer fixed />
+        <Footer />
         <ModalCreate
+          countries={countries}
+          data={this.state.toEdit}
           showModal={this.state.modalShow}
           editMode={this.state.editMode}
           close={this.closeModal}
@@ -71,7 +100,7 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
 }
 
 Principal.propTypes = {
-  // dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
   principal: PropTypes.obj,
 };
 

@@ -13,7 +13,7 @@ import {
 } from 'bloomer';
 import moment from 'moment';
 import { isUndefined } from 'lodash/lang';
-import DatePicker from 'react-widgets/lib/DateTimePicker';
+import { DateTimePicker } from 'react-widgets';
 
 
 function FieldCalendar({
@@ -27,7 +27,7 @@ function FieldCalendar({
     <Field>
       <Label>{FieldCalendarName}</Label>
       <Control>
-        <DatePicker
+        <DateTimePicker
           value={(isUndefined(valueDefault)) ? (new Date()) : (moment(valueDefault, 'DD/MM/YYYY').toDate())}
           onSelect={(date, str) => { selectFunc(str); }}
           onChange={(date, str) => { changeFunc(str); }}

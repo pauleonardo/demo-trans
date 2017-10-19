@@ -25,11 +25,18 @@ import DropItem from './DropItem';
 
 class ModalCreateUser extends React.Component { // eslint-disable-line react/prefer-stateless-function
   state = {
-    countries: [],
     data: {},
     valname: true,
     valdate: true,
     valcountry: true,
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps !== this.props && nextProps.editMode) {
+      const { data } = nextProps;
+      this.setState({ data });
+    } else {
+      this.setState({ data: {} });
+    }
   }
   handleAction = () => {
     const { editMode, edit, create } = this.props;
@@ -40,7 +47,7 @@ class ModalCreateUser extends React.Component { // eslint-disable-line react/pre
     }
   }
   render() {
-    const { editMode, showModal, close } = this.props;
+    const { editMode, showModal, close, countries } = this.props;
     return (
       <div>
         <Modal isActive={showModal}>
@@ -58,21 +65,21 @@ class ModalCreateUser extends React.Component { // eslint-disable-line react/pre
                 ChangeFunc={() => {}}
                 placeholder={'Ingrese el nombre del Usuario'}
                 validate={this.state.valname}
-  //                valueDefault
+                valueDefault={this.state.data.name}
               />
               <FieldCalendar
                 FieldCalendarName={'Fecha de Nacimiento:'}
-  //                valueDefault
+                valueDefault={this.state.data.date}
                 validate={this.state.valdate}
                 selectFunc={() => {}}
                 changeFunc={() => {}}
               />
               <FieldDrop
                 dropName={'Nacionalidad:'}
-                data={this.state.countries}
+                data={countries}
                 placeholder={'Selecciona la Nacionalidad:'}
                 item={DropItem}
-  //                defaultValue
+                defaultValue={this.state.data.country}
                 validate={this.state.valcountry}
                 filter={'contains'}
                 textField={'name'}
@@ -83,7 +90,7 @@ class ModalCreateUser extends React.Component { // eslint-disable-line react/pre
                 MultiName={'Deportes: '}
                 placeholder={'Seleccione deportes:'}
                 data={this.state.deports}
-  //                valueDefault,
+                valueDefault={this.state.data.deports}
                 changeFunc={() => {}}
                 selectFunc={() => {}}
               />
@@ -113,6 +120,8 @@ ModalCreateUser.propTypes = {
   edit: React.PropTypes.func,
   create: React.PropTypes.func,
   close: React.PropTypes.func,
+  data: React.PropTypes.obj,
+  countries: React.PropTypes.array,
 };
 
 export default ModalCreateUser;

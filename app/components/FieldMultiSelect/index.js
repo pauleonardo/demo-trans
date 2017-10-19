@@ -42,7 +42,7 @@ FieldMultiSelect.propTypes = {
   MultiName: React.PropTypes.string,
   placeholder: React.PropTypes.string,
   data: React.PropTypes.array,
-  valueDefault: React.PropTypes.string,
+  valueDefault: React.PropTypes.array,
   changeFunc: React.PropTypes.func,
   selectFunc: React.PropTypes.func,
 };

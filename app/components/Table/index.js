@@ -33,7 +33,7 @@ function TableCustom({
         <tr>
           {
             map(headersTable, (header) => (
-              <th key={uuid.v4()} style={{ flexGrow: 1, order: header.order }}>
+              <th key={uuid.v4()} style={{ flexGrow: 1, order: header.order, minWidth: '5em', padding: '10px' }}>
                 {
                   (!reverse) ?
                     <i className={'fa fa-arrow-up'} style={styles.margin} ></i> :
@@ -51,7 +51,11 @@ function TableCustom({
             map(itemElements, (item, index) => (
               <Item
                 key={`lista-item-table-${index}`}
-                {...item}
+                country={item[1].country}
+                deports={item[1].deports}
+                date={item[1].date}
+                name={item[1].name}
+                id={item[0]}
                 eraseAction={erase}
                 editAction={edit}
                 transAction={trans}
@@ -61,7 +65,11 @@ function TableCustom({
             map(itemElements, (item, index) => (
               <Item
                 key={`lista-item-table-${index}`}
-                {...item}
+                country={item[1].country}
+                deports={item[1].deports}
+                date={item[1].date}
+                name={item[1].name}
+                id={item[0]}
                 eraseAction={erase}
                 editAction={edit}
                 transAction={trans}
@@ -75,7 +83,7 @@ function TableCustom({
 
 TableCustom.propTypes = {
   headerClick: React.PropTypes.func,
-  itemElements: React.PropTypes.func,
+  itemElements: React.PropTypes.array,
   headersTable: React.PropTypes.obj,
   reverse: React.PropTypes.bool,
   erase: React.PropTypes.func,

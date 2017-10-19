@@ -44,9 +44,8 @@ import '!!style-loader!css-loader!../node_modules/react-widgets/dist/css/react-w
  /* importanto estilos de flag-icon */
 import '!!style-loader!css-loader!../node_modules/flag-icon-css/css/flag-icon.min.css';
 
-import Moment from 'moment';
+import moment from 'moment';
 import momentLocalizer from 'react-widgets-moment';
-
 import configureStore from './configureStore';
 
 // Import i18n messages
@@ -61,8 +60,8 @@ const history = createHistory();
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
 
-Moment.locale('en');
-momentLocalizer(Moment);
+moment.locale('es');
+momentLocalizer();
 
 const render = (messages) => {
   ReactDOM.render(

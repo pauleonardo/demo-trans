@@ -103,3 +103,26 @@ export async function editMonto(idCustomer, monto, type) {
 
   await firebase.database().ref(`account/${idCustomer}`).update(dataToUpdate);
 }
+
+/*
+*
+*
+* ASSETS
+*
+*
+*
+*/
+
+export async function getCountrys() {
+  try {
+    const resFetch = await fetch('https://restcountries.eu/rest/v2/all', {
+      method: 'GET',
+      header: new Headers(),
+      body: null,
+    });
+    const countries = await resFetch.json();
+    return countries;
+  } catch (error) {
+    return error;
+  }
+}
