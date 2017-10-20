@@ -14,9 +14,11 @@ function ButtonCustom({
   text,
   action,
   loading,
+  typeButton,
 }) {
   return (
     <Button
+      type={!typeButton ? '' : typeButton}
       isColor={color}
       isLoading={loading}
       onClick={action}
@@ -31,6 +33,7 @@ ButtonCustom.propTypes = {
   text: React.PropTypes.string,
   action: React.PropTypes.func,
   loading: React.PropTypes.bool,
+  typeButton: React.PropTypes.string,
 };
 
 export default ButtonCustom;

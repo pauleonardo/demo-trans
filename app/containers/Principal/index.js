@@ -62,6 +62,10 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
   handleSetUserToEdit = (customer) => {
     this.setState({ modalShow: true, editMode: true, toEdit: customer });
   }
+  handleSendToTransition = (id) => {
+    const { history } = this.props;
+    history.push(`/menu-transacciones/${id}`);
+  }
   render() {
     const { principal: { headers, loading, countries } } = this.props;
     const { customers } = this.state;
@@ -82,6 +86,7 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
                 headersTable={headers}
                 itemElements={customers}
                 edit={this.handleSetUserToEdit}
+                trans={this.handleSendToTransition}
               />
             </Container>
           </Content>
@@ -102,6 +107,7 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
 Principal.propTypes = {
   dispatch: PropTypes.func.isRequired,
   principal: PropTypes.obj,
+  history: PropTypes.obj,
 };
 
 const mapStateToProps = createStructuredSelector({

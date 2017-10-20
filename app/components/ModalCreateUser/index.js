@@ -66,6 +66,7 @@ class ModalCreateUser extends React.Component { // eslint-disable-line react/pre
                 placeholder={'Ingrese el nombre del Usuario'}
                 validate={this.state.valname}
                 valueDefault={this.state.data.name}
+                typeButton={'text'}
               />
               <FieldCalendar
                 FieldCalendarName={'Fecha de Nacimiento:'}

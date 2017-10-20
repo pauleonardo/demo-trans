@@ -21,16 +21,17 @@ function FieldInput({
   placeholder,
   validate,
   valueDefault,
+  typeField,
 }) {
   return (
     <Field>
       <Label>{fieldName}</Label>
       <Control>
         <Input
-          type={'text'}
+          type={!typeField ? 'text' : typeField}
           placeholder={placeholder}
           value={isUndefined(valueDefault) ? '' : valueDefault}
-          onChange={(res) => { ChangeFunc(res); }}
+          onChange={ChangeFunc}
         />
       </Control>
       <Help isColor={'danger'} isHidden={validate}>Esta vacio este campo.</Help>
@@ -44,6 +45,7 @@ FieldInput.propTypes = {
   placeholder: React.PropTypes.string,
   validate: React.PropTypes.bool,
   valueDefault: React.PropTypes.string,
+  typeField: React.PropTypes.string,
 };
 
 export default FieldInput;

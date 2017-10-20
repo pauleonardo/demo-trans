@@ -47,7 +47,7 @@ export function createAccount(id, data) {
 }
 
 export function getAccountDetails(id) {
-  return firebase.database().ref(`account/${id}`).once('value');
+  return firebase.database().ref(`account/${id}`).once('value').then((snap) => snap.val());
 }
 
 /*
