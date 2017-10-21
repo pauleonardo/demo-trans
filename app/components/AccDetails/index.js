@@ -9,13 +9,12 @@ import React from 'react';
 import {
   Box,
   Title,
+  Column,
+  Columns,
 } from 'bloomer';
 import Button from 'components/Button';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import {
-  Container,
-} from './StyledComponents';
 
 function AccDetails({
   backToPrincipal,
@@ -37,20 +36,24 @@ function AccDetails({
         </strong>
         {cantidad}
       </Title>
-      <Container>
-        <Button
-          color={'warning'}
-          text={'Volver al inicio'}
-          action={backToPrincipal}
-          loading={false}
-        />
-        <Button
-          color={'success'}
-          text={'Realizar Transferencia'}
-          action={backToPrincipal}
-          loading={loading}
-        />
-      </Container>
+      <Columns isCentered>
+        <Column>
+          <Button
+            color={'warning'}
+            text={'Volver al inicio'}
+            action={backToPrincipal}
+            loading={false}
+          />
+        </Column>
+        <Column>
+          <Button
+            color={'success'}
+            text={'Realizar Transferencia'}
+            action={backToPrincipal}
+            loading={loading}
+          />
+        </Column>
+      </Columns>
     </Box>
   );
 }

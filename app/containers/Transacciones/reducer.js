@@ -10,11 +10,21 @@ import {
   FETCH_ACCOUNT_INIT,
   FETCH_ACCOUNT_SUCCESS,
   FETCH_ACCOUNT_FAILURE,
+  FECTH_LIST_TRANS_SUCCESS,
+  FETCH_LIST_TRANS_FAILURE,
 } from './constants';
 
 const initialState = fromJS({
   loading: false,
   detail: { monto: 0, numeroCuenta: '' },
+  headers: [
+    { name: 'ID_Transaccion', order: 1 },
+    { name: 'ID_Emisor', order: 2 },
+    { name: 'ID_Receptor', order: 3 },
+    { name: 'Monto', order: 4 },
+    { name: 'Tipo', order: 5 },
+    { name: 'Fecha', order: 6 },
+  ],
 });
 
 function transaccionesReducer(state = initialState, action) {
@@ -33,6 +43,14 @@ function transaccionesReducer(state = initialState, action) {
     case FETCH_ACCOUNT_FAILURE:
       return state.merge({
         loading: false,
+        error: action.payload,
+      });
+    case FECTH_LIST_TRANS_SUCCESS:
+      return state.merge({
+        transition: action.payload,
+      });
+    case FETCH_LIST_TRANS_FAILURE:
+      return state.merge({
         error: action.payload,
       });
     default:

@@ -31,6 +31,9 @@ import makeSelectTransacciones from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import {
+  style,
+} from './styles';
+import {
   FETCH_ACCOUNT_INIT,
 } from './constants';
 
@@ -57,7 +60,7 @@ export class Transacciones extends React.Component { // eslint-disable-line reac
     console.warn('enviando...');
   }
   render() {
-    const { transacciones: { loading } } = this.props;
+    const { transacciones: { loading, headers, transition } } = this.props;
     const { detail: { monto, numeroCuenta } } = this.state;
     return (
       <div>
@@ -87,12 +90,15 @@ export class Transacciones extends React.Component { // eslint-disable-line reac
                 cantidad={monto}
               />
             </Section>
-            <Section>
-              <Table />
+            <Section style={style.tableTrans}>
+              <Table
+                headers={headers}
+                registros={transition}
+              />
             </Section>
           </Content>
         </Container>
-        <Footer fixed />
+        <Footer />
       </div>
     );
   }

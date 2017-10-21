@@ -74,12 +74,12 @@ export function createCard(id) {
 *
 */
 
-export async function fetchListResta(idCustomer) {
-  return firebase.database().ref('operation-resta').orderByChild('idEmisor').equalTo(idCustomer).once('value');
+export function fetchListResta(idCustomer) {
+  return firebase.database().ref('operation-resta').orderByChild('idEmisor').equalTo(idCustomer).once('value').then((snap) => snap.val());
 }
 
-export async function fetchListSuma(idCustomer) {
-  return firebase.database().ref('operation-suma').orderByChild('idReceptor').equalTo(idCustomer).once('value');
+export function fetchListSuma(idCustomer) {
+  return firebase.database().ref('operation-suma').orderByChild('idReceptor').equalTo(idCustomer).once('value').then((snap) => snap.val());
 }
 
 export function transitionSuma(idEmisor, idReceptor, cantidad) {

@@ -17,16 +17,16 @@ import {
 function TableTrans({
   registros,
   headerClick,
-  header,
+  headers,
   reverse,
 }) {
   return (
     <Container>
-      <Table>
+      <Table isStriped>
         <thead role={'presentation'} onClick={headerClick} >
           <tr>
             {
-              map(header, (item, index) => (
+              map(headers, (item, index) => (
                 <th
                   key={`header-list-${index}`}
                   style={{ flexGrow: 1, order: item.order }}
@@ -62,7 +62,7 @@ function TableTrans({
 TableTrans.propTypes = {
   registros: React.PropTypes.array,
   headerClick: React.PropTypes.func,
-  header: React.PropTypes.array,
+  headers: React.PropTypes.array,
   reverse: React.PropTypes.bool,
 };
 
