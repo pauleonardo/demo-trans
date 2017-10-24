@@ -29,7 +29,6 @@ export function* obtenerCustomerAcc(action) {
 
 export function* obtenerTransCustomer(action) {
   const { payloadid } = action;
-  console.log(payloadid);
   try {
     let listResta = yield call(fetchListResta, payloadid);
     let listSuma = yield call(fetchListSuma, payloadid);

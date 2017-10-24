@@ -16,6 +16,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import Principal from 'containers/Principal/Loadable';
 import Trans from 'containers/Transacciones/Loadable';
+import Transfe from 'containers/Transferencia/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 export default function App() {
@@ -24,6 +25,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={Principal} />
         <Route exact path="/menu-transacciones/:id" component={Trans} />
+        <Route exact path="/doing-transferencia/:id" component={Transfe} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

@@ -18,6 +18,7 @@ import messages from './messages';
 
 function AccDetails({
   backToPrincipal,
+  doTransaccion,
   loading,
   account,
   cantidad,
@@ -49,7 +50,7 @@ function AccDetails({
           <Button
             color={'success'}
             text={'Realizar Transferencia'}
-            action={backToPrincipal}
+            action={doTransaccion}
             loading={loading}
           />
         </Column>
@@ -60,6 +61,7 @@ function AccDetails({
 
 AccDetails.propTypes = {
   backToPrincipal: React.PropTypes.func,
+  doTransaccion: React.PropTypes.func,
   loading: React.PropTypes.bool,
   account: React.PropTypes.string,
   cantidad: React.PropTypes.string,

@@ -26,16 +26,14 @@ function DropField({
   textField,
   valueField,
   changeFunc,
+  busy,
 }) {
-  const bool = true;
   return (
     <Field>
       <Label>{dropName}</Label>
       <Control>
         <DropdownList
-          busy={
-            (data === 0) ? bool : !bool
-          }
+          busy={busy}
           placeholder={placeholder}
           data={data}
           filter={filter}
@@ -43,7 +41,7 @@ function DropField({
           textField={textField}
           valueField={valueField}
           onChange={(value) => { changeFunc(value); }}
-          value={(isUndefined(defaultValue)) ? '' : (defaultValue.toUpperCase())}
+          value={(isUndefined(defaultValue)) ? '' : (defaultValue)}
         />
       </Control>
       <Help isColor={'danger'} isHidden={validate}>Debe seleccionar una opción.</Help>
@@ -58,10 +56,11 @@ DropField.propTypes = {
   item: React.PropTypes.func,
   defaultValue: React.PropTypes.string,
   validate: React.PropTypes.bool,
-  filter: React.PropTypes.string,
+  filter: React.PropTypes.bool,
   textField: React.PropTypes.string,
   valueField: React.PropTypes.string,
   changeFunc: React.PropTypes.func,
+  busy: React.PropTypes.bool,
 };
 
 export default DropField;

@@ -28,7 +28,7 @@ function FieldCalendar({
       <Label>{FieldCalendarName}</Label>
       <Control>
         <DateTimePicker
-          value={(isUndefined(valueDefault)) ? (new Date()) : (moment(valueDefault, 'DD/MM/YYYY').toDate())}
+          value={(isUndefined(valueDefault)) ? (moment(new Date()).toDate()) : (moment(valueDefault, 'DD/MM/YYYY').toDate())}
           onSelect={(date, str) => { selectFunc(str); }}
           onChange={(date, str) => { changeFunc(str); }}
           time={false}

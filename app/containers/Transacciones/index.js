@@ -56,6 +56,10 @@ export class Transacciones extends React.Component { // eslint-disable-line reac
     const { history } = this.props;
     history.push('/');
   }
+  doTransaccion = () => {
+    const { history, match: { params: { id } } } = this.props;
+    history.push(`/doing-transferencia/${id}`);
+  }
   submitForm = () => {
     console.warn('enviando...');
   }
@@ -85,6 +89,7 @@ export class Transacciones extends React.Component { // eslint-disable-line reac
             <Section style={{ display: (!loading) ? 'block' : 'none' }}>
               <AccDetails
                 backToPrincipal={this.backToPrincipal}
+                doTransaccion={this.doTransaccion}
                 loading={loading}
                 account={numeroCuenta}
                 cantidad={monto}

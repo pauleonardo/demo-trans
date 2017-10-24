@@ -26,6 +26,7 @@ import DropItem from './DropItem';
 class ModalCreateUser extends React.Component { // eslint-disable-line react/prefer-stateless-function
   state = {
     data: {},
+    countries: [],
     valname: true,
     valdate: true,
     valcountry: true,
