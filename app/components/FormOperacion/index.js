@@ -5,6 +5,8 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Box,
   Container,
@@ -32,6 +34,8 @@ function FormOperacion({
   changeMonto,
   actual,
   montoActual,
+  validateDrop,
+  validateMonto,
 }) {
   return (
     <form onSubmit={SubmitAction} style={styles.containerFlex} >
@@ -49,7 +53,7 @@ function FormOperacion({
             data={dataCustomers}
             item={Item}
             placeholder={'Seleccione un customer:'}
-            validate
+            validate={validateDrop}
             filter={false}
             textField={'name'}
             valueField={'name'}
@@ -61,7 +65,7 @@ function FormOperacion({
             fieldName={'Monto a Transferir: '}
             ChangeFunc={(monto) => { changeMonto(monto); }}
             placeholder={'Monto'}
-            validate
+            validate={validateMonto}
             valueDefault={montoActual}
             typeField={'number'}
           />
@@ -86,14 +90,16 @@ function FormOperacion({
 }
 
 FormOperacion.propTypes = {
-  SubmitAction: React.PropTypes.func,
-  backToList: React.PropTypes.func,
-  dataCustomers: React.PropTypes.array,
-  loading: React.PropTypes.bool,
-  changeFunc: React.PropTypes.func,
-  actual: React.PropTypes.obj,
-  changeMonto: React.PropTypes.func,
-  montoActual: React.PropTypes.string,
+  SubmitAction: PropTypes.func,
+  backToList: PropTypes.func,
+  dataCustomers: PropTypes.array,
+  loading: PropTypes.bool,
+  changeFunc: PropTypes.func,
+  actual: PropTypes.array,
+  changeMonto: PropTypes.func,
+  montoActual: PropTypes.number,
+  validateDrop: PropTypes.bool,
+  validateMonto: PropTypes.bool,
 };
 
 export default FormOperacion;

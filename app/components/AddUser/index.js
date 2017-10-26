@@ -5,6 +5,7 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { FormattedMessage } from 'react-intl';
 import {
@@ -39,7 +40,7 @@ function AddUser({
 }
 
 AddUser.propTypes = {
-  actionAdd: React.PropTypes.func,
+  actionAdd: PropTypes.func,
 };
 
 export default AddUser;

@@ -5,6 +5,8 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Field,
   Label,
@@ -42,11 +44,11 @@ function FieldCalendar({
 }
 
 FieldCalendar.propTypes = {
-  FieldCalendarName: React.PropTypes.string,
-  valueDefault: React.PropTypes.string,
-  validate: React.PropTypes.bool,
-  selectFunc: React.PropTypes.func,
-  changeFunc: React.PropTypes.func,
+  FieldCalendarName: PropTypes.string,
+  valueDefault: PropTypes.string,
+  validate: PropTypes.bool,
+  selectFunc: PropTypes.func,
+  changeFunc: PropTypes.func,
 };
 
 export default FieldCalendar;

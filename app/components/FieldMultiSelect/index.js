@@ -5,6 +5,8 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import MultiSelect from 'react-widgets/lib/Multiselect';
 
 import {
@@ -39,12 +41,12 @@ function FieldMultiSelect({
 }
 
 FieldMultiSelect.propTypes = {
-  MultiName: React.PropTypes.string,
-  placeholder: React.PropTypes.string,
-  data: React.PropTypes.array,
-  valueDefault: React.PropTypes.array,
-  changeFunc: React.PropTypes.func,
-  selectFunc: React.PropTypes.func,
+  MultiName: PropTypes.string,
+  placeholder: PropTypes.string,
+  data: PropTypes.array,
+  valueDefault: PropTypes.array,
+  changeFunc: PropTypes.func,
+  selectFunc: PropTypes.func,
 };
 
 export default FieldMultiSelect;

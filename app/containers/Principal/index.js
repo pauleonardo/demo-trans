@@ -47,7 +47,8 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props) {
-      this.setState({ customers: Object.entries(nextProps.principal.data) });
+      const { principal: { data } } = nextProps;
+      this.setState({ customers: Object.entries(data) });
     }
   }
   closeModal = () => {
@@ -106,8 +107,8 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
 
 Principal.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  principal: PropTypes.obj,
-  history: PropTypes.obj,
+  history: PropTypes.object.isRequired,
+  principal: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

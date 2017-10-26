@@ -5,6 +5,8 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Field,
   Control,
@@ -40,12 +42,12 @@ function FieldInput({
 }
 
 FieldInput.propTypes = {
-  fieldName: React.PropTypes.string,
-  ChangeFunc: React.PropTypes.func,
-  placeholder: React.PropTypes.string,
-  validate: React.PropTypes.bool,
-  valueDefault: React.PropTypes.string,
-  typeField: React.PropTypes.string,
+  fieldName: PropTypes.string,
+  ChangeFunc: PropTypes.func,
+  placeholder: PropTypes.string,
+  validate: PropTypes.bool,
+  valueDefault: PropTypes.any,
+  typeField: PropTypes.string,
 };
 
 export default FieldInput;

@@ -7,6 +7,8 @@
 import React from 'react';
 import uuid from 'uuid';
 import { map } from 'lodash/collection';
+import PropTypes from 'prop-types';
+
 
 import {
   Table,
@@ -82,13 +84,13 @@ function TableCustom({
 }
 
 TableCustom.propTypes = {
-  headerClick: React.PropTypes.func,
-  itemElements: React.PropTypes.array,
-  headersTable: React.PropTypes.obj,
-  reverse: React.PropTypes.bool,
-  erase: React.PropTypes.func,
-  edit: React.PropTypes.func,
-  trans: React.PropTypes.func,
+  headerClick: PropTypes.func,
+  itemElements: PropTypes.array,
+  headersTable: PropTypes.array,
+  reverse: PropTypes.bool,
+  erase: PropTypes.func,
+  edit: PropTypes.func,
+  trans: PropTypes.func,
 };
 
 export default TableCustom;

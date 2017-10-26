@@ -75,33 +75,37 @@ export function createCard(id) {
 */
 
 export function fetchListResta(idCustomer) {
-  return firebase.database().ref('operation-resta').orderByChild('idEmisor').equalTo(idCustomer).once('value').then((snap) => snap.val());
+  return firebase.database().ref('operation-resta').orderByChild('emisor').equalTo(idCustomer).once('value').then((snap) => snap.val());
 }
 
 export function fetchListSuma(idCustomer) {
-  return firebase.database().ref('operation-suma').orderByChild('idReceptor').equalTo(idCustomer).once('value').then((snap) => snap.val());
+  return firebase.database().ref('operation-suma').orderByChild('receptor').equalTo(idCustomer).once('value').then((snap) => snap.val());
 }
 
-export function transitionSuma(idEmisor, idReceptor, cantidad) {
-  return firebase.database().ref('operation-suma').push({ idEmisor, idReceptor, cantidad, date: moment(new Date()).format('DD/MM/YYYY') }).key;
+export async function transitionSuma(trans) {
+  const { emisor, receptor, monto } = trans;
+  await firebase.database().ref('operation-suma').push({ emisor, receptor, monto, date: moment(new Date()).format('DD/MM/YYYY') }).key;
 }
 
-export function transitionResta(idEmisor, idReceptor, cantidad) {
-  return firebase.database().ref('operation-resta').push({ idEmisor, idReceptor, cantidad, date: moment(new Date()).format('DD/MM/YYYY') }).key;
+export async function transitionResta(trans) {
+  const { emisor, receptor, monto } = trans;
+  await firebase.database().ref('operation-resta').push({ emisor, receptor, monto, date: moment(new Date()).format('DD/MM/YYYY') }).key;
 }
 
-export async function editMonto(idCustomer, monto, type) {
-  const ref = await firebase.database().ref(`account/${idCustomer}`).once('value');
+export async function editMonto(edit) {
+  const { id, monto, type } = edit;
+  const ref = await firebase.database().ref(`account/${id}`).once('value');
+  const montoIni = await ref.child('monto').val();
   const montoFinal = (type === '+') ?
-   parseInt(ref.child('monto').val(), 2) + parseInt(monto, 2) :
-   parseInt(ref.child('monto').val(), 2) - parseInt(monto, 2);
+   parseInt(montoIni, 0) + parseInt(monto, 0) :
+   parseInt(montoIni, 0) - parseInt(monto, 0);
 
   const dataToUpdate = {
     numeroCuenta: ref.child('numeroCuenta').val(),
     monto: montoFinal,
   };
 
-  await firebase.database().ref(`account/${idCustomer}`).update(dataToUpdate);
+  await firebase.database().ref(`account/${id}`).update(dataToUpdate);
 }
 
 /*

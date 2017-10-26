@@ -6,6 +6,8 @@
 
 import React from 'react';
 import { map } from 'lodash/collection';
+import PropTypes from 'prop-types';
+
 import {
   Table,
 } from 'bloomer';
@@ -46,9 +48,9 @@ function TableTrans({
             <Item
               key={`list-registros-${index}`}
               id={item.id}
-              idEmisor={item.idEmisor}
-              idReceptor={item.idReceptor}
-              cantidad={item.cantidad}
+              idEmisor={item.emisor}
+              idReceptor={item.receptor}
+              cantidad={item.monto}
               type={item.type}
               date={item.date}
             />
@@ -60,10 +62,10 @@ function TableTrans({
 }
 
 TableTrans.propTypes = {
-  registros: React.PropTypes.array,
-  headerClick: React.PropTypes.func,
-  headers: React.PropTypes.array,
-  reverse: React.PropTypes.bool,
+  registros: PropTypes.array,
+  headerClick: PropTypes.func,
+  headers: PropTypes.array,
+  reverse: PropTypes.bool,
 };
 
 export default TableTrans;

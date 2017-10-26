@@ -46,7 +46,7 @@ export function* obtenerTransCustomer(action) {
     resta.forEach((value, key) => {
       const newValue = clone(value);
       newValue.id = key;
-      newValue.type = '+';
+      newValue.type = '-';
       trans.push(newValue);
     });
     yield put(fecthListTransSuccess(trans));

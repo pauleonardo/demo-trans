@@ -58,7 +58,8 @@ export class Transacciones extends React.Component { // eslint-disable-line reac
   }
   doTransaccion = () => {
     const { history, match: { params: { id } } } = this.props;
-    history.push(`/doing-transferencia/${id}`);
+    const { detail: { monto } } = this.state;
+    history.push(`/doing-transferencia/${id}/${monto}`);
   }
   submitForm = () => {
     console.warn('enviando...');
@@ -111,9 +112,9 @@ export class Transacciones extends React.Component { // eslint-disable-line reac
 
 Transacciones.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  history: PropTypes.obj,
-  match: PropTypes.obj,
-  transacciones: PropTypes.obj,
+  history: PropTypes.object,
+  match: PropTypes.object,
+  transacciones: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

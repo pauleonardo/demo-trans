@@ -5,6 +5,8 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Columns,
   Column,
@@ -93,8 +95,8 @@ class FormCreateAcc extends React.Component { // eslint-disable-line react/prefe
 }
 
 FormCreateAcc.propTypes = {
-  submitAction: React.PropTypes.func,
-  backToPrincipal: React.PropTypes.func,
+  submitAction: PropTypes.func,
+  backToPrincipal: PropTypes.func,
 };
 
 export default FormCreateAcc;

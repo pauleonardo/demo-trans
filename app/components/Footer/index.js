@@ -5,6 +5,8 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Footer,
   Container,
@@ -78,7 +80,7 @@ function FooterCustom({
 }
 
 FooterCustom.propTypes = {
-  fixed: React.PropTypes.bool,
+  fixed: PropTypes.bool,
 };
 
 export default FooterCustom;

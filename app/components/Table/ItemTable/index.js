@@ -7,6 +7,8 @@
 import React from 'react';
 import uuid from 'uuid';
 import moment from 'moment';
+import PropTypes from 'prop-types';
+
 
 import Button from 'components/Button';
 import {
@@ -64,14 +66,14 @@ function ItemTable({
 }
 
 ItemTable.propTypes = {
-  id: React.PropTypes.num,
-  country: React.PropTypes.string,
-  deports: React.PropTypes.array,
-  date: React.PropTypes.string,
-  name: React.PropTypes.string,
-  eraseAction: React.PropTypes.func,
-  editAction: React.PropTypes.func,
-  transAction: React.PropTypes.func,
+  id: PropTypes.string,
+  country: PropTypes.string,
+  deports: PropTypes.array,
+  date: PropTypes.string,
+  name: PropTypes.string,
+  eraseAction: PropTypes.func,
+  editAction: PropTypes.func,
+  transAction: PropTypes.func,
 };
 
 export default ItemTable;

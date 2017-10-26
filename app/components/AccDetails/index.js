@@ -5,6 +5,8 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 
 import {
   Box,
@@ -60,11 +62,11 @@ function AccDetails({
 }
 
 AccDetails.propTypes = {
-  backToPrincipal: React.PropTypes.func,
-  doTransaccion: React.PropTypes.func,
-  loading: React.PropTypes.bool,
-  account: React.PropTypes.string,
-  cantidad: React.PropTypes.string,
+  backToPrincipal: PropTypes.func,
+  doTransaccion: PropTypes.func,
+  loading: PropTypes.bool,
+  account: PropTypes.string,
+  cantidad: PropTypes.number,
 };
 
 export default AccDetails;

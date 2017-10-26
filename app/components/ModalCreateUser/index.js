@@ -4,6 +4,8 @@
 *
 */
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Modal,
   ModalBackground,
@@ -83,7 +85,7 @@ class ModalCreateUser extends React.Component { // eslint-disable-line react/pre
                 item={DropItem}
                 defaultValue={this.state.data.country}
                 validate={this.state.valcountry}
-                filter={'contains'}
+                filter
                 textField={'name'}
                 valueField={'alpha2Code'}
                 changeFunc={() => {}}
@@ -117,13 +119,13 @@ class ModalCreateUser extends React.Component { // eslint-disable-line react/pre
 }
 
 ModalCreateUser.propTypes = {
-  editMode: React.PropTypes.bool,
-  showModal: React.PropTypes.bool,
-  edit: React.PropTypes.func,
-  create: React.PropTypes.func,
-  close: React.PropTypes.func,
-  data: React.PropTypes.obj,
-  countries: React.PropTypes.array,
+  editMode: PropTypes.bool,
+  showModal: PropTypes.bool,
+  edit: PropTypes.func,
+  create: PropTypes.func,
+  close: PropTypes.func,
+  data: PropTypes.object,
+  countries: PropTypes.array,
 };
 
 export default ModalCreateUser;

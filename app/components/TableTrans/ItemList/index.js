@@ -5,6 +5,8 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   ItemTd,
 } from './styles';
@@ -30,12 +32,12 @@ function ItemList({
 }
 
 ItemList.propTypes = {
-  id: React.PropTypes.string,
-  idEmisor: React.PropTypes.string,
-  idReceptor: React.PropTypes.string,
-  cantidad: React.PropTypes.string,
-  type: React.PropTypes.string,
-  date: React.PropTypes.string,
+  id: PropTypes.string,
+  idEmisor: PropTypes.string,
+  idReceptor: PropTypes.string,
+  cantidad: PropTypes.number,
+  type: PropTypes.string,
+  date: PropTypes.string,
 };
 
 export default ItemList;

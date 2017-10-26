@@ -5,6 +5,8 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Button,
 } from 'bloomer';
@@ -29,11 +31,11 @@ function ButtonCustom({
 }
 
 ButtonCustom.propTypes = {
-  color: React.PropTypes.string,
-  text: React.PropTypes.string,
-  action: React.PropTypes.func,
-  loading: React.PropTypes.bool,
-  typeButton: React.PropTypes.string,
+  color: PropTypes.string,
+  text: PropTypes.string,
+  action: PropTypes.func,
+  loading: PropTypes.bool,
+  typeButton: PropTypes.string,
 };
 
 export default ButtonCustom;

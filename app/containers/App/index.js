@@ -25,7 +25,7 @@ export default function App() {
       <Switch>
         <Route exact path="/" component={Principal} />
         <Route exact path="/menu-transacciones/:id" component={Trans} />
-        <Route exact path="/doing-transferencia/:id" component={Transfe} />
+        <Route exact path="/doing-transferencia/:id/:monto" component={Transfe} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

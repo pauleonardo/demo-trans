@@ -5,6 +5,8 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Field,
   Label,
@@ -50,17 +52,17 @@ function DropField({
 }
 
 DropField.propTypes = {
-  dropName: React.PropTypes.string,
-  data: React.PropTypes.array,
-  placeholder: React.PropTypes.string,
-  item: React.PropTypes.func,
-  defaultValue: React.PropTypes.string,
-  validate: React.PropTypes.bool,
-  filter: React.PropTypes.bool,
-  textField: React.PropTypes.string,
-  valueField: React.PropTypes.string,
-  changeFunc: React.PropTypes.func,
-  busy: React.PropTypes.bool,
+  dropName: PropTypes.string,
+  data: PropTypes.array,
+  placeholder: PropTypes.string,
+  item: PropTypes.func,
+  defaultValue: PropTypes.object,
+  validate: PropTypes.bool,
+  filter: PropTypes.bool,
+  textField: PropTypes.string,
+  valueField: PropTypes.string,
+  changeFunc: PropTypes.func,
+  busy: PropTypes.bool,
 };
 
 export default DropField;

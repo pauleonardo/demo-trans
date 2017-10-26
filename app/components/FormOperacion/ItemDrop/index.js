@@ -5,6 +5,8 @@
 */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 
 function ItemDrop({ item }) {
   return (
@@ -15,7 +17,7 @@ function ItemDrop({ item }) {
 }
 
 ItemDrop.propTypes = {
-  item: React.PropTypes.obj,
+  item: PropTypes.array,
 };
 
 export default ItemDrop;

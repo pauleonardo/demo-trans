@@ -5,7 +5,7 @@
 */
 
 import React from 'react';
-
+import PropTypes from 'prop-types';
 
 function DropItem({ item }) {
   return (
@@ -17,7 +17,7 @@ function DropItem({ item }) {
 }
 
 DropItem.propTypes = {
-  item: React.PropTypes.obj,
+  item: PropTypes.object,
 };
 
 export default DropItem;
