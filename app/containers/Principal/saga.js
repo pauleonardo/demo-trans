@@ -2,14 +2,22 @@ import { call, put, takeEvery } from 'redux-saga/effects';
 import {
   FETCH_LIST_CUSTOMER_INIT,
   FETCH_LIST_COUNTRY_INIT,
+  DELETE_CUSTOMER_INIT,
+  DELETE_CUSTOMER_SUCCESS,
 } from './constants';
 import {
   fetchListCustomerSuccess,
   fetchListCustomerFailure,
   fetchListCountrySuccess,
   fetchListCountryFailure,
+  fetchDeleteSuccess,
+  fetchDeleteFailure,
 } from './actions';
-import { getListCustomer, getCountrys } from '../../client-api';
+import {
+  getListCustomer,
+  getCountrys,
+  deleteCustomer,
+} from '../../client-api';
 
 export function* obtenerCustomer() {
   try {
@@ -30,7 +38,19 @@ export function* obtenerCountryList() {
   }
 }
 
+export function* borrarCustomer(action) {
+  try {
+    const { payload } = action;
+    yield call(deleteCustomer, payload);
+    yield put(fetchDeleteSuccess());
+  } catch (error) {
+    yield put(fetchDeleteFailure(error));
+  }
+}
+
 export default function* defaultSaga() {
   yield takeEvery(FETCH_LIST_CUSTOMER_INIT, obtenerCustomer);
   yield takeEvery(FETCH_LIST_COUNTRY_INIT, obtenerCountryList);
+  yield takeEvery(DELETE_CUSTOMER_INIT, borrarCustomer);
+  yield takeEvery(DELETE_CUSTOMER_SUCCESS, obtenerCustomer);
 }

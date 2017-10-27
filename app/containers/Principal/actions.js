@@ -12,6 +12,9 @@ import {
   FETCH_LIST_COUNTRY_INIT,
   FETCH_LIST_COUNTRY_SUCCESS,
   FETCH_LIST_COUNTRY_FAILURE,
+  DELETE_CUSTOMER_INIT,
+  DELETE_CUSTOMER_SUCCESS,
+  DELETE_CUSTOMER_FAILURE,
 } from './constants';
 
 export function defaultAction() {
@@ -60,3 +63,22 @@ export function fetchListCountryFailure(error) {
   };
 }
 
+export function fetchDeleteInit(id) {
+  return {
+    type: DELETE_CUSTOMER_INIT,
+    payload: id,
+  };
+}
+
+export function fetchDeleteSuccess() {
+  return {
+    type: DELETE_CUSTOMER_SUCCESS,
+  };
+}
+
+export function fetchDeleteFailure(error) {
+  return {
+    type: DELETE_CUSTOMER_FAILURE,
+    payload: error,
+  };
+}

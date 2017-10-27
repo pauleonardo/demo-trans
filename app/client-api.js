@@ -21,8 +21,9 @@ export function getListCustomer() {
   return firebase.database().ref('customer').once('value');
 }
 
-export function deleteCustomer(id) {
-  return firebase.database().ref(`customer/${id}`);
+export async function deleteCustomer(id) {
+  const res = await firebase.database().ref(`customer/${id}`);
+  await res.remove();
 }
 
 export function editCustomer(id, customer) {

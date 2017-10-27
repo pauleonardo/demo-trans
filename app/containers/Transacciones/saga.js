@@ -10,6 +10,7 @@ import {
   fetchAccountFailure,
   fecthListTransSuccess,
   fetchListTransFailure,
+  fechListTransInit,
 } from './actions';
 import {
   getAccountDetails,
@@ -32,6 +33,7 @@ export function* obtenerTransCustomer(action) {
   try {
     let listResta = yield call(fetchListResta, payloadid);
     let listSuma = yield call(fetchListSuma, payloadid);
+    yield put(fechListTransInit());
     const trans = [];
     listResta = (listResta === null) ? {} : listResta;
     listSuma = (listSuma === null) ? {} : listSuma;
@@ -51,6 +53,7 @@ export function* obtenerTransCustomer(action) {
     });
     yield put(fecthListTransSuccess(trans));
   } catch (error) {
+    console.warn('error:', error);
     yield put(fetchListTransFailure(error));
   }
 }

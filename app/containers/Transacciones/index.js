@@ -21,6 +21,7 @@ import Header from 'components/Header';
 import Footer from 'components/Footer';
 import FormCreate from 'components/FormCreateAcc';
 import Loading from 'components/LoadingGear';
+import ElliLoading from 'components/LoadingEllipsis';
 import Table from 'components/TableTrans';
 import AccDetails from 'components/AccDetails';
 import injectSaga from 'utils/injectSaga';
@@ -38,17 +39,20 @@ import {
 } from './constants';
 
 export class Transacciones extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  state = { detail: { monto: 0, numeroCuenta: '' } }
+  state = { detail: { monto: 0, numeroCuenta: '' }, loadingList: true, transition: [] }
   componentWillMount() {
     const { match: { params: { id } }, dispatch } = this.props;
     dispatch({ type: FETCH_ACCOUNT_INIT, payload: id });
+    this.setState({
+      loadingList: true,
+    });
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props) {
       const { detail } = nextProps.transacciones;
       if (!isNull(detail)) {
-        const { transacciones: { detail: { monto, numeroCuenta } } } = nextProps;
-        this.setState({ detail: { monto, numeroCuenta } });
+        const { transacciones: { detail: { monto, numeroCuenta }, loadingList, transition } } = nextProps;
+        this.setState({ detail: { monto, numeroCuenta }, loadingList, transition });
       }
     }
   }
@@ -65,8 +69,8 @@ export class Transacciones extends React.Component { // eslint-disable-line reac
     console.warn('enviando...');
   }
   render() {
-    const { transacciones: { loading, headers, transition } } = this.props;
-    const { detail: { monto, numeroCuenta } } = this.state;
+    const { transacciones: { loading, headers } } = this.props;
+    const { detail: { monto, numeroCuenta }, loadingList, transition } = this.state;
     return (
       <div>
         <Helmet>
@@ -87,7 +91,7 @@ export class Transacciones extends React.Component { // eslint-disable-line reac
                 />
               </Container>
             </Section>
-            <Section style={{ display: (!loading) ? 'block' : 'none' }}>
+            <Section style={{ display: (!loading && numeroCuenta !== '') ? 'block' : 'none' }}>
               <AccDetails
                 backToPrincipal={this.backToPrincipal}
                 doTransaccion={this.doTransaccion}
@@ -96,11 +100,14 @@ export class Transacciones extends React.Component { // eslint-disable-line reac
                 cantidad={monto}
               />
             </Section>
-            <Section style={style.tableTrans}>
+            <Section style={{ display: (numeroCuenta === '') ? 'none' : 'block', ...style.tableTrans }}>
               <Table
                 headers={headers}
                 registros={transition}
               />
+              <Section style={{ display: (loadingList) ? 'block' : 'none' }}>
+                <ElliLoading />
+              </Section>
             </Section>
           </Content>
         </Container>

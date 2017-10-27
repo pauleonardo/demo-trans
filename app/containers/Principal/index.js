@@ -20,6 +20,7 @@ import Footer from 'components/Footer';
 import AddUser from 'components/AddUser';
 import Table from 'components/Table';
 import ModalCreate from 'components/ModalCreateUser';
+import ModalErase from 'components/ModalEraseCustomer';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectPrincipal from './selectors';
@@ -32,6 +33,9 @@ import {
   FETCH_LIST_CUSTOMER_INIT,
   FETCH_LIST_COUNTRY_INIT,
 } from './constants';
+import {
+  fetchDeleteInit,
+} from './actions';
 
 export class Principal extends React.Component { // eslint-disable-line react/prefer-stateless-function
   state = {
@@ -39,6 +43,7 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
     editMode: false,
     customers: [],
     toEdit: {},
+    eraseShow: false,
   }
   componentWillMount() {
     const { dispatch } = this.props;
@@ -67,9 +72,27 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
     const { history } = this.props;
     history.push(`/menu-transacciones/${id}`);
   }
+  handleDelete = (id) => {
+    this.setState({ toErase: id, eraseShow: true });
+  }
+  deleteSelected = () => {
+    const { dispatch } = this.props;
+    const { toErase } = this.state;
+    dispatch(fetchDeleteInit(toErase));
+    this.closeErase();
+  }
+  closeErase = () => {
+    this.setState({ eraseShow: false });
+  }
   render() {
     const { principal: { headers, loading, countries } } = this.props;
-    const { customers } = this.state;
+    const {
+      customers,
+      modalShow,
+      editMode,
+      toEdit,
+      eraseShow,
+    } = this.state;
     return (
       <div>
         <Helmet>
@@ -88,6 +111,7 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
                 itemElements={customers}
                 edit={this.handleSetUserToEdit}
                 trans={this.handleSendToTransition}
+                erase={this.handleDelete}
               />
             </Container>
           </Content>
@@ -95,10 +119,15 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
         <Footer />
         <ModalCreate
           countries={countries}
-          data={this.state.toEdit}
-          showModal={this.state.modalShow}
-          editMode={this.state.editMode}
+          data={toEdit}
+          showModal={modalShow}
+          editMode={editMode}
           close={this.closeModal}
+        />
+        <ModalErase
+          close={this.closeErase}
+          showModal={eraseShow}
+          fnDelete={this.deleteSelected}
         />
       </div>
     );

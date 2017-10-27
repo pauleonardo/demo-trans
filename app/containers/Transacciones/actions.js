@@ -49,10 +49,9 @@ export function fecthListTransSuccess(trans) {
   };
 }
 
-export function fechListTransInit(id) {
+export function fechListTransInit() {
   return {
     type: FETCH_LIST_TRANS_INIT,
-    payload: id,
   };
 }
 
