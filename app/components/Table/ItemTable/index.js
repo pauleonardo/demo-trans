@@ -6,7 +6,7 @@
 
 import React from 'react';
 import uuid from 'uuid';
-import moment from 'moment';
+import moment from 'moment-with-locales-es6';
 import PropTypes from 'prop-types';
 
 
@@ -26,10 +26,10 @@ function ItemTable({
     transAction,
 }) {
   const relativeTime = (time) => {
-    let sinFormato = moment(time, 'DD/MM/YYYY').fromNow(true);
-    sinFormato = sinFormato.trim();
-    const timeFormated = sinFormato.slice(0, sinFormato.indexOf('year'));
-    return `${timeFormated} años `;
+    let tiempo = moment(time, 'DD/MM/YYYY').locale('es');
+    tiempo = tiempo.fromNow(true);
+    tiempo = tiempo.trim();
+    return `${tiempo}`;
   };
   return (
     <tr key={uuid.v4()}>

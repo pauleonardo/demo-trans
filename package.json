@@ -234,6 +234,7 @@
     "minimist": "1.2.0",
     "moment": "^2.17.0",
     "moment-timezone": "^0.5.13",
+    "moment-with-locales-es6": "^2.18.1",
     "node-sass": "^4.5.3",
     "prop-types": "15.5.10",
     "react": "15.6.1",
