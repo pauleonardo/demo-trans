@@ -27,30 +27,78 @@ import DropItem from './DropItem';
 
 class ModalCreateUser extends React.Component { // eslint-disable-line react/prefer-stateless-function
   state = {
-    data: {},
+    data: { deports: [] },
     countries: [],
     valname: true,
     valdate: true,
     valcountry: true,
+    valdeports: true,
+    loading: false,
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props && nextProps.editMode) {
-      const { data } = nextProps;
-      this.setState({ data });
+      const { data, loading } = nextProps;
+      this.setState({ data, loading });
     } else {
-      this.setState({ data: {} });
+      const { loading } = nextProps;
+      this.setState({ data: {}, loading });
     }
+  }
+  handleChangeName = (name) => {
+    this.setState({ data: { ...this.state.data, name } });
+  }
+  handleChangeCountry = (country) => {
+    this.setState({ data: { ...this.state.data, country: country.alpha2Code } });
+  }
+  handleChangeDate = (date) => {
+    this.setState({ data: { ...this.state.data, date } });
+  }
+  handleOnChange = (value) => {
+    this.setState({ data: { ...this.state.data, deports: value } });
+  }
+  handleOnSelected = () => {
+    const { data } = this.state;
+    this.setState({ data: { ...data } });
   }
   handleAction = () => {
     const { editMode, edit, create } = this.props;
+    const { data } = this.state;
     if (editMode) {
-      edit();
+      if (this.validateFields('name') &&
+        this.validateFields('country') &&
+        this.validateFields('date') &&
+        this.validateFields('deports')
+        ) {
+        edit(data);
+      }
     } else {
-      create();
+      if (this.validateFields('name') &&
+        this.validateFields('country') &&
+        this.validateFields('date') &&
+        this.validateFields('deports')
+      ) {
+        create(data);
+      }
+      return true;
     }
+    return true;
+  }
+  validateFields = (field) => {
+    let bool = false;
+    if ((this.state.data[field] === '') ||
+        (typeof this.state.data[field] === 'undefined') ||
+        (this.state.data[field].length <= 0) ||
+        (this.state.data[field] === 'Invalid date')
+      ) {
+      this.setState({ [`val${field}`]: false });
+    } else {
+      this.setState({ [`val${field}`]: true });
+      bool = true;
+    }
+    return bool;
   }
   render() {
-    const { editMode, showModal, close, countries } = this.props;
+    const { editMode, showModal, close, countries, deports, loading } = this.props;
     return (
       <div>
         <Modal isActive={showModal}>
@@ -65,7 +113,7 @@ class ModalCreateUser extends React.Component { // eslint-disable-line react/pre
             <ModalCardBody>
               <FieldNombre
                 fieldName={'Nombre:'}
-                ChangeFunc={() => {}}
+                ChangeFunc={(res) => this.handleChangeName(res.target.value)}
                 placeholder={'Ingrese el nombre del Usuario'}
                 validate={this.state.valname}
                 valueDefault={this.state.data.name}
@@ -75,8 +123,8 @@ class ModalCreateUser extends React.Component { // eslint-disable-line react/pre
                 FieldCalendarName={'Fecha de Nacimiento:'}
                 valueDefault={this.state.data.date}
                 validate={this.state.valdate}
-                selectFunc={() => {}}
-                changeFunc={() => {}}
+                selectFunc={this.handleChangeDate}
+                changeFunc={this.handleChangeDate}
               />
               <FieldDrop
                 dropName={'Nacionalidad:'}
@@ -88,15 +136,16 @@ class ModalCreateUser extends React.Component { // eslint-disable-line react/pre
                 filter
                 textField={'name'}
                 valueField={'alpha2Code'}
-                changeFunc={() => {}}
+                changeFunc={this.handleChangeCountry}
               />
               <FieldMulti
                 MultiName={'Deportes: '}
                 placeholder={'Seleccione deportes:'}
-                data={this.state.deports}
+                data={deports}
                 valueDefault={this.state.data.deports}
-                changeFunc={() => {}}
-                selectFunc={() => {}}
+                changeFunc={this.handleOnChange}
+                selectFunc={this.handleOnSelected}
+                validate={this.state.valdeports}
               />
             </ModalCardBody>
             <ModalCardFooter>
@@ -104,6 +153,7 @@ class ModalCreateUser extends React.Component { // eslint-disable-line react/pre
                 color={'success'}
                 action={this.handleAction}
                 text={'Guardar'}
+                loading={loading}
               />
               <Button
                 color={'warning'}
@@ -126,6 +176,8 @@ ModalCreateUser.propTypes = {
   close: PropTypes.func,
   data: PropTypes.object,
   countries: PropTypes.array,
+  loading: PropTypes.bool,
+  deports: PropTypes.array,
 };
 
 export default ModalCreateUser;

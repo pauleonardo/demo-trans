@@ -12,6 +12,9 @@ import {
   FECTH_LIST_TRANS_SUCCESS,
   FETCH_LIST_TRANS_INIT,
   FETCH_LIST_TRANS_FAILURE,
+  CREATE_ACCOUNT_INIT,
+  CREATE_ACCOUNT_SUCCESS,
+  CREATE_ACCOUNT_FAILURE,
 } from './constants';
 
 export function defaultAction() {
@@ -58,6 +61,25 @@ export function fechListTransInit() {
 export function fetchListTransFailure(error) {
   return {
     type: FETCH_LIST_TRANS_FAILURE,
+    payload: error,
+  };
+}
+
+export function fetchCreateAccountInit() {
+  return {
+    type: CREATE_ACCOUNT_INIT,
+  };
+}
+
+export function fetchCreateAccountSuccess() {
+  return {
+    type: CREATE_ACCOUNT_SUCCESS,
+  };
+}
+
+export function fetchCreateAccountFailure(error) {
+  return {
+    type: CREATE_ACCOUNT_FAILURE,
     payload: error,
   };
 }

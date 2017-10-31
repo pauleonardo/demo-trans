@@ -11,6 +11,8 @@ import 'babel-polyfill';
 // Import all the third party stuff
 import React from 'react';
 import ReactDOM from 'react-dom';
+import moment from 'moment';
+import momentLocalizer from 'react-widgets-moment';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'react-router-redux';
 import createHistory from 'history/createBrowserHistory';
@@ -44,8 +46,7 @@ import '!!style-loader!css-loader!../node_modules/react-widgets/dist/css/react-w
  /* importanto estilos de flag-icon */
 import '!!style-loader!css-loader!../node_modules/flag-icon-css/css/flag-icon.min.css';
 
-import moment from 'moment';
-import momentLocalizer from 'react-widgets-moment';
+
 import configureStore from './configureStore';
 
 // Import i18n messages

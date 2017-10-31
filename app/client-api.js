@@ -43,12 +43,13 @@ export function editCustomer(id, customer) {
 *
 */
 
-export function createAccount(id, data) {
-  firebase.database().ref(`account/${id}`).set({ monto: data, numeroCuenta: uuid.v4() });
+export async function createAccount(id, data) {
+  await firebase.database().ref(`account/${id}`).set({ monto: data, numeroCuenta: uuid.v4() });
 }
 
-export function getAccountDetails(id) {
-  return firebase.database().ref(`account/${id}`).once('value').then((snap) => snap.val());
+export async function getAccountDetails(id) {
+  const data = await firebase.database().ref(`account/${id}`).once('value').then((snap) => snap.val());
+  return data;
 }
 
 /*

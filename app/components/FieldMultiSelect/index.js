@@ -13,6 +13,7 @@ import {
   Field,
   Label,
   Control,
+  Help,
 } from 'bloomer';
 import { isUndefined } from 'lodash/lang';
 
@@ -23,6 +24,7 @@ function FieldMultiSelect({
   valueDefault,
   changeFunc,
   selectFunc,
+  validate,
 }) {
   return (
     <Field>
@@ -35,6 +37,7 @@ function FieldMultiSelect({
           onChange={(res) => { changeFunc(res); }}
           onSelect={(res) => { selectFunc(res); }}
         />
+        <Help isColor={'danger'} isHidden={validate}>Debe añadir alguna opción.</Help>
       </Control>
     </Field>
   );
@@ -47,6 +50,7 @@ FieldMultiSelect.propTypes = {
   valueDefault: PropTypes.array,
   changeFunc: PropTypes.func,
   selectFunc: PropTypes.func,
+  validate: PropTypes.bool,
 };
 
 export default FieldMultiSelect;

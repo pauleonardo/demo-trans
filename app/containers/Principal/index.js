@@ -21,6 +21,7 @@ import AddUser from 'components/AddUser';
 import Table from 'components/Table';
 import ModalCreate from 'components/ModalCreateUser';
 import ModalErase from 'components/ModalEraseCustomer';
+import NotiModal from 'components/NotiModal';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import makeSelectPrincipal from './selectors';
@@ -32,6 +33,8 @@ import {
 import {
   FETCH_LIST_CUSTOMER_INIT,
   FETCH_LIST_COUNTRY_INIT,
+  MODAL_CUSTOMER_CREATE_INIT,
+  MODAL_CUSTOMER_EDIT_INIT,
 } from './constants';
 import {
   fetchDeleteInit,
@@ -44,6 +47,11 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
     customers: [],
     toEdit: {},
     eraseShow: false,
+    notiShow: false,
+    typeNotiModal: false,
+    loading: false,
+    terminada: false,
+    deports: ['futbol', 'tenis', 'beisbol', 'basket', 'perinola', 'metras', 'trompo', 'gurrufijo'],
   }
   componentWillMount() {
     const { dispatch } = this.props;
@@ -52,8 +60,11 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps !== this.props) {
-      const { principal: { data } } = nextProps;
-      this.setState({ customers: Object.entries(data) });
+      const { principal: { data, loading, terminada, error } } = nextProps;
+      this.setState({ customers: Object.entries(data), loading });
+      if (terminada) {
+        this.setState({ modalShow: false, notiShow: true, typeNotiModal: error });
+      }
     }
   }
   closeModal = () => {
@@ -84,14 +95,32 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
   closeErase = () => {
     this.setState({ eraseShow: false });
   }
+  closeNotiModal = () => {
+    this.setState({ notiShow: false });
+  }
+  handleCreateCustomer = (data) => {
+    const { dispatch } = this.props;
+    const action = { type: MODAL_CUSTOMER_CREATE_INIT, payload: data };
+    dispatch(action);
+  }
+  handleEditCustomer = (data) => {
+    const { dispatch } = this.props;
+    const { name, date, country, deports, id } = data;
+    const action = { type: MODAL_CUSTOMER_EDIT_INIT, id, payload: { name, date, country, deports } };
+    dispatch(action);
+  }
   render() {
-    const { principal: { headers, loading, countries } } = this.props;
+    const { principal: { headers, countries } } = this.props;
     const {
       customers,
       modalShow,
       editMode,
       toEdit,
       eraseShow,
+      notiShow,
+      typeNotiModal,
+      deports,
+      loading,
     } = this.state;
     return (
       <div>
@@ -118,16 +147,25 @@ export class Principal extends React.Component { // eslint-disable-line react/pr
         </Container>
         <Footer />
         <ModalCreate
+          deports={deports}
           countries={countries}
           data={toEdit}
           showModal={modalShow}
           editMode={editMode}
           close={this.closeModal}
+          create={this.handleCreateCustomer}
+          edit={this.handleEditCustomer}
+          loading={loading}
         />
         <ModalErase
           close={this.closeErase}
           showModal={eraseShow}
           fnDelete={this.deleteSelected}
+        />
+        <NotiModal
+          active={notiShow}
+          close={this.closeNotiModal}
+          type={!typeNotiModal}
         />
       </div>
     );

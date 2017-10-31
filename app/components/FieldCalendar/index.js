@@ -35,7 +35,6 @@ function FieldCalendar({
           onChange={(date, str) => { changeFunc(str); }}
           time={false}
           format={'DD/MM/YYYY'}
-          culture={'es'}
         />
       </Control>
       <Help isColor={'danger'} isHidden={validate}>Fecha vacía.</Help>

@@ -13,20 +13,17 @@ import {
   FETCH_LIST_TRANS_INIT,
   FECTH_LIST_TRANS_SUCCESS,
   FETCH_LIST_TRANS_FAILURE,
+  CREATE_ACCOUNT_INIT,
+  CREATE_ACCOUNT_SUCCESS,
+  CREATE_ACCOUNT_FAILURE,
+  headers,
 } from './constants';
 
 const initialState = fromJS({
   loading: false,
   loadingList: true,
   detail: { monto: 0, numeroCuenta: '' },
-  headers: [
-    { name: 'ID_Transaccion', order: 1 },
-    { name: 'ID_Emisor', order: 2 },
-    { name: 'ID_Receptor', order: 3 },
-    { name: 'Monto', order: 4 },
-    { name: 'Tipo', order: 5 },
-    { name: 'Fecha', order: 6 },
-  ],
+  headers,
 });
 
 function transaccionesReducer(state = initialState, action) {
@@ -60,6 +57,22 @@ function transaccionesReducer(state = initialState, action) {
       return state.merge({
         error: action.payload,
         loadingList: false,
+      });
+    case CREATE_ACCOUNT_INIT:
+      return state.merge({
+        error: false,
+        loadingAcc: true,
+      });
+    case CREATE_ACCOUNT_SUCCESS:
+      return state.merge({
+        error: false,
+        loadingAcc: false,
+        loading: true,
+      });
+    case CREATE_ACCOUNT_FAILURE:
+      return state.merge({
+        error: action.error,
+        loadingAcc: true,
       });
     default:
       return state;

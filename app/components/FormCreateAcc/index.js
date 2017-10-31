@@ -26,12 +26,20 @@ class FormCreateAcc extends React.Component { // eslint-disable-line react/prefe
   state = {
     validateForm: true,
     monto: 0,
+    loadingAcc: false,
+  }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps !== this.props) {
+      const { loadingAcc } = nextProps;
+      this.setState({ loadingAcc });
+    }
   }
   handleSubmit = (ev) => {
     ev.preventDefault();
     const { submitAction } = this.props;
-    if (this.state.monto > 0) {
-      submitAction();
+    const { monto, loadingAcc } = this.state;
+    if (monto > 0 && !loadingAcc) {
+      submitAction(monto);
       this.setState({ validateForm: true, monto: 0 });
     } else {
       this.setState({ validateForm: false });
@@ -42,8 +50,8 @@ class FormCreateAcc extends React.Component { // eslint-disable-line react/prefe
   }
   render() {
     const columnSizes = { mobile: 12, default: 6, tablet: 9 };
-    const { submitAction, backToPrincipal } = this.props;
-    const { validateForm, monto } = this.state;
+    const { backToPrincipal } = this.props;
+    const { validateForm, monto, loadingAcc } = this.state;
     return (
       <Columns isCentered>
         <Column isSize={columnSizes}>
@@ -59,7 +67,7 @@ class FormCreateAcc extends React.Component { // eslint-disable-line react/prefe
             <Title isSize={6}>
               <FormattedMessage {...messages.SecondTitle} />
             </Title>
-            <form onSubmit={submitAction}>
+            <form onSubmit={this.handleSubmit}>
               <FieldInput
                 fieldName={'Monto inicial: '}
                 ChangeFunc={this.handleChange}
@@ -73,8 +81,8 @@ class FormCreateAcc extends React.Component { // eslint-disable-line react/prefe
                   <Button
                     color={'primary'}
                     text={'Apertura Cuenta'}
-                    action={this.handleSubmit}
                     typeButton={'submit'}
+                    loading={loadingAcc}
                   />
                 </Control>
                 <Control>
@@ -97,6 +105,7 @@ class FormCreateAcc extends React.Component { // eslint-disable-line react/prefe
 FormCreateAcc.propTypes = {
   submitAction: PropTypes.func,
   backToPrincipal: PropTypes.func,
+  loadingAcc: PropTypes.bool,
 };
 
 export default FormCreateAcc;

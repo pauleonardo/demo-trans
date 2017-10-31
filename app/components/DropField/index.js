@@ -43,7 +43,7 @@ function DropField({
           textField={textField}
           valueField={valueField}
           onChange={(value) => { changeFunc(value); }}
-          value={(isUndefined(defaultValue)) ? '' : (defaultValue)}
+          value={(isUndefined(defaultValue)) ? { name: '' } : (defaultValue)}
         />
       </Control>
       <Help isColor={'danger'} isHidden={validate}>Debe seleccionar una opción.</Help>

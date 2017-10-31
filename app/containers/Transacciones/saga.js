@@ -4,6 +4,7 @@ import { clone } from 'lodash/lang';
 import {
   FETCH_ACCOUNT_INIT,
   FETCH_ACCOUNT_SUCCESS,
+  CREATE_ACCOUNT_INIT,
 } from './constants';
 import {
   fetchAccountSuccess,
@@ -11,11 +12,14 @@ import {
   fecthListTransSuccess,
   fetchListTransFailure,
   fechListTransInit,
+  fetchCreateAccountSuccess,
+  fetchCreateAccountFailure,
 } from './actions';
 import {
   getAccountDetails,
   fetchListResta,
   fetchListSuma,
+  createAccount,
 } from '../../client-api';
 
 export function* obtenerCustomerAcc(action) {
@@ -53,8 +57,18 @@ export function* obtenerTransCustomer(action) {
     });
     yield put(fecthListTransSuccess(trans));
   } catch (error) {
-    console.warn('error:', error);
     yield put(fetchListTransFailure(error));
+  }
+}
+
+export function* crearCuenta(action) {
+  try {
+    const { payload: { id, monto } } = action;
+    yield call(createAccount, id, monto);
+    yield put(fetchCreateAccountSuccess());
+    yield call(obtenerCustomerAcc, { payload: id });
+  } catch (error) {
+    yield put(fetchCreateAccountFailure(error));
   }
 }
 
@@ -62,4 +76,5 @@ export function* obtenerTransCustomer(action) {
 export default function* defaultSaga() {
   yield takeEvery(FETCH_ACCOUNT_INIT, obtenerCustomerAcc);
   yield takeEvery(FETCH_ACCOUNT_SUCCESS, obtenerTransCustomer);
+  yield takeEvery(CREATE_ACCOUNT_INIT, crearCuenta);
 }

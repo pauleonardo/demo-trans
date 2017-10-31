@@ -15,6 +15,10 @@ import {
   DELETE_CUSTOMER_INIT,
   DELETE_CUSTOMER_SUCCESS,
   DELETE_CUSTOMER_FAILURE,
+  MODAL_CUSTOMER_EDIT_SUCCESS,
+  MODAL_CUSTOMER_EDIT_FAILURE,
+  MODAL_CUSTOMER_CREATE_SUCCESS,
+  MODAL_CUSTOMER_CREATE_FAILURE,
 } from './constants';
 
 export function defaultAction() {
@@ -80,5 +84,31 @@ export function fetchDeleteFailure(error) {
   return {
     type: DELETE_CUSTOMER_FAILURE,
     payload: error,
+  };
+}
+
+export function editCustomerSuccess() {
+  return {
+    type: MODAL_CUSTOMER_EDIT_SUCCESS,
+  };
+}
+
+export function editCustomerFailure(error) {
+  return {
+    type: MODAL_CUSTOMER_EDIT_FAILURE,
+    payload: error,
+  };
+}
+
+export function fetchCreateCustomerSuccess() {
+  return {
+    type: MODAL_CUSTOMER_CREATE_SUCCESS,
+  };
+}
+
+export function fetchCreateCustomerFailure(message) {
+  return {
+    type: MODAL_CUSTOMER_CREATE_FAILURE,
+    payload: message,
   };
 }

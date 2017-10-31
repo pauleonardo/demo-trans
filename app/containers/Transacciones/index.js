@@ -36,6 +36,7 @@ import {
 } from './styles';
 import {
   FETCH_ACCOUNT_INIT,
+  CREATE_ACCOUNT_INIT,
 } from './constants';
 
 export class Transacciones extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -51,10 +52,15 @@ export class Transacciones extends React.Component { // eslint-disable-line reac
     if (nextProps !== this.props) {
       const { detail } = nextProps.transacciones;
       if (!isNull(detail)) {
-        const { transacciones: { detail: { monto, numeroCuenta }, loadingList, transition } } = nextProps;
-        this.setState({ detail: { monto, numeroCuenta }, loadingList, transition });
+        const { transacciones: { detail: { monto, numeroCuenta }, loadingList, transition, loadingAcc } } = nextProps;
+        this.setState({ detail: { monto, numeroCuenta }, loadingList, transition, loadingAcc });
+      } else {
+        this.setState({ detail: { monto: 0, numeroCuenta: '' }, loadingList: true, transition: [] });
       }
     }
+  }
+  handleMontoForm = (monto) => {
+    this.setState({ montoForm: monto });
   }
   backToPrincipal = () => {
     const { history } = this.props;
@@ -65,12 +71,14 @@ export class Transacciones extends React.Component { // eslint-disable-line reac
     const { detail: { monto } } = this.state;
     history.push(`/doing-transferencia/${id}/${monto}`);
   }
-  submitForm = () => {
-    console.warn('enviando...');
+  submitForm = (monto) => {
+    const { match: { params: { id } }, dispatch } = this.props;
+    const action = { type: CREATE_ACCOUNT_INIT, payload: { id, monto } };
+    dispatch(action);
   }
   render() {
     const { transacciones: { loading, headers } } = this.props;
-    const { detail: { monto, numeroCuenta }, loadingList, transition } = this.state;
+    const { detail: { monto, numeroCuenta }, loadingList, transition, loadingAcc } = this.state;
     return (
       <div>
         <Helmet>
@@ -86,8 +94,9 @@ export class Transacciones extends React.Component { // eslint-disable-line reac
             <Section style={{ display: (!loading && numeroCuenta === '') ? 'block' : 'none' }}>
               <Container>
                 <FormCreate
-                  submitAction={this.submitAction}
+                  submitAction={this.submitForm}
                   backToPrincipal={this.backToPrincipal}
+                  loadingAcc={loadingAcc}
                 />
               </Container>
             </Section>
